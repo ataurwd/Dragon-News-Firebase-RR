@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Home = () => {
+const LatestNews = () => {
     return (
         <div>
-            dsfs
+            
         </div>
     );
 };
 
-export default Home;
+export default LatestNews;
