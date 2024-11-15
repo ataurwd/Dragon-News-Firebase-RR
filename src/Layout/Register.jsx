@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { FormContext } from '../Context/FIrebaseContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 const Register = () => {
     const [password, setPassword] = useState(false);
@@ -16,12 +17,12 @@ const Register = () => {
         createUserWithEmail(email,password)
         .then(result => {
             setUser(result.user)
-            console.log(result.user)
+            toast.success('Registration successful')
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            alert(`${errorCode} ${errorMessage}`)
+            toast.error(`${errorMessage}`)
           });
         
     }

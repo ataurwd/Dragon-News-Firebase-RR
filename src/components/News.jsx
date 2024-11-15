@@ -1,8 +1,7 @@
 import React from 'react';
 import { IoShareSocialSharp } from 'react-icons/io5';
 import { MdBookmarks } from 'react-icons/md';
-import Rating from 'react-rating';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { Link, useLoaderData, useParams } from 'react-router-dom';
 import RatingComponent from './Rating';
 import { FaRegEye } from 'react-icons/fa';
 
@@ -32,8 +31,12 @@ const News = () => {
                     <div className='p-5'>
                         <h1 className='font-extrabold text-2xl my-8'>{news.title}</h1>
                         <img src={news.image_url} alt="" />
-                        <p className='my-3 text-gray-500'>{news.details}</p>
-                        <button className='font-bold text-[#FF8C47]'>Read More</button>
+                        <p className='my-3 text-gray-500'>
+                            {
+                                news.details.length > 100 ? `${news.details.slice(0, 300)} ....` : news.details
+                            }
+                            </p>
+                        <Link to={`/news/${news._id}`} className='font-bold text-[#FF8C47]'>Read More</Link>
                     </div>
                     <div className='border-b-2 w-[90%] mx-auto'></div>
                     <div className='p-5 flex justify-between items-center'>

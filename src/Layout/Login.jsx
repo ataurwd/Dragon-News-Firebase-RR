@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FormContext } from '../Context/FIrebaseContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const [password, setPassword] = useState(false);
@@ -11,6 +12,9 @@ const Login = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         signInWithEmail(email,password)
+        .then(()=> {
+            toast.success('Login successful')
+        })
     }
     return (
         <div className="mx-auto w-full max-w-md space-y-4 rounded-lg border bg-white p-7 shadow-lg sm:p-10 dark:border-zinc-700 dark:bg-zinc-900 mt-[10vh]">

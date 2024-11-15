@@ -6,6 +6,8 @@ import News from "./components/News";
 import AuthLayout from './Layout/AuthLayout';
 import Login from "./Layout/Login";
 import Register from "./Layout/Register";
+import { Toaster } from "react-hot-toast";
+import NewsDetails from "./components/NewsDetails";
 
 const route = createBrowserRouter([
     {
@@ -29,6 +31,12 @@ const route = createBrowserRouter([
         element: <About />
     },
     {
+        path: '/news/:id',
+        loader: ({ params }) => 
+            fetch(`https://openapi.programming-hero.com/api/news/${params.id}`),
+        element: <NewsDetails/>
+    },
+    {
         path:'/auth',
         element: <AuthLayout/>,
         children: [
@@ -47,6 +55,7 @@ const route = createBrowserRouter([
 const App = () => (
     <FIrebaseContext>
         <RouterProvider router={route} />
+        <Toaster/>
     </FIrebaseContext>
 );
 

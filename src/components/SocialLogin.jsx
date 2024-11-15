@@ -4,7 +4,6 @@ import { FormContext } from './../Context/FIrebaseContext';
 
 const SocialLogin = () => {
     const {handelGoogleSignIn} = useContext(FormContext)
-    console.log(handelGoogleSignIn)
     return (
         <div>
             <h2 className='font-bold text-xl'>Login With</h2>
