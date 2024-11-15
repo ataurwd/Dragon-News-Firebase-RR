@@ -2,22 +2,41 @@ import React, { useContext, useState } from 'react';
 import { FormContext } from '../Context/FIrebaseContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import { updateProfile } from 'firebase/auth';
+import auth from '../firebase/firebase.init';
 
 const Register = () => {
     const [password, setPassword] = useState(false);
+    // const [error, setError] = useState({});
     const {createUserWithEmail, user, setUser} = useContext(FormContext)
     console.log(user)
 
     const handelSubmitBtn = (e) => {
+
         e.preventDefault();
         const name = e.target.name.value;
         const photoURl = e.target.photo.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
+
+        //check validation
+        if(name.length < 5){
+            toast.error('Name should be at least 5 characters long')
+            return
+        }
+
         createUserWithEmail(email,password)
         .then(result => {
             setUser(result.user)
+            const profile = {
+                displayName: name,
+                photoURL: photoURl,
+            }
+
+            updateProfile(auth.currentUser, profile)
+            .then(() => {})
             toast.success('Registration successful')
+            console.log(result.user)
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -45,6 +64,7 @@ const Register = () => {
                                 placeholder="Your Name"
                                 name="name"
                                 type="text"
+                                required
                             />
                         </div>
                         <div className="space-y-2 text-sm">
@@ -57,6 +77,7 @@ const Register = () => {
                                 placeholder="Photo URL"
                                 name="photo"
                                 type="text"
+                                required
                             />
                         </div>
                     </div>

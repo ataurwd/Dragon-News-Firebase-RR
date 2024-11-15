@@ -6,6 +6,7 @@ export const FormContext = createContext(null)
 
 const FIrebaseContext = ({children}) => {
     const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(true)
 
 const googleProvider = new GoogleAuthProvider()
     const handelGoogleSignIn = () => {
@@ -13,16 +14,19 @@ const googleProvider = new GoogleAuthProvider()
     }
 
     const createUserWithEmail = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth ,email, password)
     }
 
     // for user login funtion
     const signInWithEmail = (email, password) => {
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     // for user loaout funtion
     const signOutUser = () => {
+        setLoading(true)
         return signOut(auth)
     }
 
@@ -30,6 +34,7 @@ const googleProvider = new GoogleAuthProvider()
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
+            setLoading(false)
         })
 
         return () => {
@@ -43,6 +48,7 @@ const googleProvider = new GoogleAuthProvider()
         signInWithEmail,
         signOutUser,
         user,
+        loading,
         setUser,
     }
     return (

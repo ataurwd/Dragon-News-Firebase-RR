@@ -1,13 +1,14 @@
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
-import Home from "./pages/Home";
-import About from './pages/About';
-import FIrebaseContext from "./Context/FIrebaseContext";
-import News from "./components/News";
-import AuthLayout from './Layout/AuthLayout';
-import Login from "./Layout/Login";
-import Register from "./Layout/Register";
+import Home from "../pages/Home";
+import About from '../pages/About';
+import FIrebaseContext from "../Context/FIrebaseContext";
+import News from "../components/News";
+import AuthLayout from '../Layout/AuthLayout';
+import Login from "../Layout/Login";
+import Register from "../Layout/Register";
 import { Toaster } from "react-hot-toast";
-import NewsDetails from "./components/NewsDetails";
+import NewsDetails from "../components/NewsDetails";
+import PrivateRoutes from "./PrivateRoutes";
 
 const route = createBrowserRouter([
     {
@@ -34,7 +35,9 @@ const route = createBrowserRouter([
         path: '/news/:id',
         loader: ({ params }) => 
             fetch(`https://openapi.programming-hero.com/api/news/${params.id}`),
-        element: <NewsDetails/>
+        element: <PrivateRoutes>
+                    <NewsDetails/>
+                </PrivateRoutes>
     },
     {
         path:'/auth',

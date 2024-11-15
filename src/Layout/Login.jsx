@@ -1,20 +1,31 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FormContext } from '../Context/FIrebaseContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 
 const Login = () => {
-    const [password, setPassword] = useState(false);
-    const {signInWithEmail} = useContext(FormContext)
+    const [password, setPassword] = useState({});
+    const [err, setErr] = useState(true);
+    const {signInWithEmail, setUser} = useContext(FormContext)
+    const location = useLocation()
+    const navigation = useNavigate()
+
     const handelLogin = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         signInWithEmail(email,password)
-        .then(()=> {
+        .then((result)=> {
             toast.success('Login successful')
+            setUser(result.user)
+            navigation(location?.state ? location.state : '/')
         })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            toast.error(errorCode)
+          });
     }
     return (
         <div className="mx-auto w-full max-w-md space-y-4 rounded-lg border bg-white p-7 shadow-lg sm:p-10 dark:border-zinc-700 dark:bg-zinc-900 mt-[10vh]">
@@ -44,7 +55,7 @@ const Login = () => {
                     id="password"
                     placeholder="Enter password"
                     name="password"
-                    type={password ? "text" : "password" }
+                    type={password ? "password" : 'text' }
                     required
                 />
                     <div onClick={() => setPassword(!password)}>
