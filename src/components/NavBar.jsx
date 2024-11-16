@@ -21,6 +21,7 @@ const NavBar = () => {
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/about">About</NavLink>
                 <NavLink to="/carrear">Carrear</NavLink>
+                <Link to='/news' className=' px-3 py-1'>News</Link>
             </div>
             <div className='flex space-x-2'>
                 {
