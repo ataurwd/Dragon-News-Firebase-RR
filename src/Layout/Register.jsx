@@ -9,7 +9,7 @@ const Register = () => {
     const [password, setPassword] = useState(false);
     // const [error, setError] = useState({});
     const {createUserWithEmail, user, setUser} = useContext(FormContext)
-    console.log(user)
+
 
     const handelSubmitBtn = (e) => {
 
@@ -36,7 +36,6 @@ const Register = () => {
             updateProfile(auth.currentUser, profile)
             .then(() => {})
             toast.success('Registration successful')
-            console.log(result.user)
         })
         .catch((error) => {
             const errorCode = error.code;
